@@ -49,9 +49,10 @@ public class Person {
     @Column(name = "PERSON_CODE", unique = true)
     private String personCode;
 	
-    public Person(String name, String surname) {
-		setName(name);
-		setSurname(surname);
+    public Person(String name, String surname, String personCode) {
+		this.name = name;
+		this.surname = surname;
+		this.personCode = personCode;
 	}
 	
 	
