@@ -1,5 +1,9 @@
 package lv.venta.repo;
 
-public interface IDriverRepo {
+import org.springframework.data.repository.CrudRepository;
+
+import lv.venta.model.Driver;
+
+public interface IDriverRepo extends CrudRepository<Driver, Integer>{
 
 }

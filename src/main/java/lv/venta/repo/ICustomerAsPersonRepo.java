@@ -1,5 +1,9 @@
 package lv.venta.repo;
 
-public interface ICustomerAsPersonRepo {
+import org.springframework.data.repository.CrudRepository;
+
+import lv.venta.model.CustomerAsPerson;
+
+public interface ICustomerAsPersonRepo extends CrudRepository<CustomerAsPerson, Integer>{
 
 }
