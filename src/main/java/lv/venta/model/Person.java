@@ -30,7 +30,7 @@ public class Person {
 	@Column(name = "IDP")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int IDP;
+	private Long pID;
 	
 	@NotNull
 	@Size(min = 2, max = 20)
