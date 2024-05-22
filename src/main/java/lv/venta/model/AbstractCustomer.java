@@ -46,8 +46,8 @@ public abstract class AbstractCustomer {
 	
     
     public AbstractCustomer(Address address, String phoneNo){
-    	this.address = address;
-        this.phoneNo = phoneNo;
+        setAddress(address);
+        setPhoneNo(phoneNo);
     }
     
     

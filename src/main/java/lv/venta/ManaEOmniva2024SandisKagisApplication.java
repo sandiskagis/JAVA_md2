@@ -49,8 +49,8 @@ public class ManaEOmniva2024SandisKagisApplication {
 				parcelRepo.save(pa1);
 				parcelRepo.save(pa2);
 				
-				Driver d1 = new Driver(p1, "12345678", 2.5f);
-				Driver d2 = new Driver(p2, "44448888", 5.6f);
+				Driver d1 = new Driver("Maris", "Kviesis", "120300-23231", "12345678", 2.5f);
+				Driver d2 = new Driver("Ricards", "Smiltins", "151288-32889", "44448888", 5.6f);
 				driverRepo.save(d1);
 				driverRepo.save(d2);
 				
