@@ -50,9 +50,9 @@ public class Person {
     private String personCode;
 	
     public Person(String name, String surname, String personCode) {
-		this.name = name;
-		this.surname = surname;
-		this.personCode = personCode;
+		setName(name);;
+		setSurname(surname);
+		setPersonCode(personCode);
 	}
 	
 	

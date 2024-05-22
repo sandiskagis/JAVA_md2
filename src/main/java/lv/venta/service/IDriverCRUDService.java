@@ -11,11 +11,11 @@ public interface IDriverCRUDService {
 	
 	public abstract Driver selectDriverById(int id) throws Exception;
 	
-	public abstract Driver deleteDriverById(int id) throws Exception;
+	public abstract void deleteDriverById(int id) throws Exception;
 	
 	public abstract Driver insertNewDriver(String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception;
 	
-	public abstract Driver updateDriverById(int id, String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception;
+	public abstract void updateDriverById(int id, String name, String surname, String personCode, String licenseNo, float experienceInYears) throws Exception;
 	
 	
 }

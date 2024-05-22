@@ -23,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table(name = "DRIVER_TABLE")
 @Entity
-public class Driver {
+public class Driver extends Person{
 
 	@Setter(value = AccessLevel.NONE)//priekš ID nebūs automātiskais set
 	@Column(name = "IDP")
@@ -44,9 +44,9 @@ public class Driver {
     @Column(name = "EXPERIENCE_IN_YEARS")
     private float experienceInYears;
 
-    public Driver(Person person, String licenseNo, float experienceInYears) {
-        this.person = person;
-        this.licenseNo = licenseNo;
-        this.experienceInYears = experienceInYears;
+    public Driver(String name, String surname, String personCode, String licenseNo, float experienceInYears) {
+        super(name, surname, personCode);
+        setLicenseNo(licenseNo);
+        setExperienceInYears(experienceInYears);
     }
 }
