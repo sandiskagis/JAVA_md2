@@ -41,7 +41,7 @@ public class CustomerAsCompany extends AbstractCustomer{
 
 	@Override
 	public void setCustomerCode() {
-		super.customerCode = super.getCID() + "_company_" + this.companyRegNo;
+		super.customerCode = super.getCustomerId() + "_company_" + this.companyRegNo;
 	}
 	
 }

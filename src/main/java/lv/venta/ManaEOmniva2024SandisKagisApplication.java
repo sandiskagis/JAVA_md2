@@ -44,15 +44,15 @@ public class ManaEOmniva2024SandisKagisApplication {
 				personRepo.save(p1);
 				personRepo.save(p2);
 				
-				Parcel pa1 = new Parcel(true, LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.WEEKS), 2.8f, ParcelSize.M);
-				Parcel pa2 = new Parcel(false, LocalDateTime.now(), LocalDateTime.now().plus(2, ChronoUnit.WEEKS), 7.2f, ParcelSize.XL);
-				parcelRepo.save(pa1);
-				parcelRepo.save(pa2);
-				
 				Driver d1 = new Driver("Maris", "Kviesis", "120300-23231", "12345678", 2.5f);
 				Driver d2 = new Driver("Ricards", "Smiltins", "151288-32889", "44448888", 5.6f);
 				driverRepo.save(d1);
 				driverRepo.save(d2);
+				
+				Parcel pa1 = new Parcel(true, ParcelSize.M, d1, LocalDateTime.now().plus(1, ChronoUnit.WEEKS));
+				Parcel pa2 = new Parcel(false, ParcelSize.L, d2, LocalDateTime.now().plus(2, ChronoUnit.WEEKS));
+				parcelRepo.save(pa1);
+				parcelRepo.save(pa2);
 				
 				Address a1 = new Address(City.Riga, "Bruninieku iela", 101);
 				Address a2 = new Address(City.Ventspils, "Inzenieru iela", 50);

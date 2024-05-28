@@ -27,7 +27,7 @@ public class Address {
 	@Column(name = "IDa")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long aID;
+    private int aID;
 	
 	@Column(name = "CITY")
 	private City city;

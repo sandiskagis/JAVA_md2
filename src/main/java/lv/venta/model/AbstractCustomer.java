@@ -26,8 +26,9 @@ import lombok.ToString;
 public abstract class AbstractCustomer {
 
 	@Setter(value = AccessLevel.NONE)//priekš ID nebūs automātiskais set
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long cID;
+	private int customerId;
 	
 	@NotNull
 	@Pattern(regexp = "[A-ZĒŪĪĻĶĢŠĀŽČŅ]{1}[a-zēūīļķģšāžčņ]+", message = "Only letters allowed")

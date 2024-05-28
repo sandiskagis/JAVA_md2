@@ -29,7 +29,7 @@ public class DriverCRUDServiceImpl implements IDriverCRUDService {
 		if (id > 0) {
 			if(driverRepo.existsById(id)) 
 			{
-				return driverRepo.findById(id).get();
+				return driverRepo.findByPersonId(id);
 			}
 			else
 				throw new Exception("Driver with " + id + " is not found");
@@ -54,7 +54,7 @@ public class DriverCRUDServiceImpl implements IDriverCRUDService {
 			throw new Exception("Problems with input parameters");
 		
 		// noskaidrojam, vai jau tāds driver neeksistē
-		Driver foundDriver = driverRepo.findByNameAndSurnameAndPersonCodeAndLicenseNoAndExperienceInYears(name, surname, personCode, licenseNo, experienceInYears);
+		Driver foundDriver = driverRepo.findByPersonCode(personCode);
 		if(foundDriver != null)
 			throw new Exception("This driver already exists");
 		

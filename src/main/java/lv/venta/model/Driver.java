@@ -25,12 +25,6 @@ import lombok.ToString;
 @Entity
 public class Driver extends Person{
 
-	@Setter(value = AccessLevel.NONE)//priekš ID nebūs automātiskais set
-	@Column(name = "IDP")
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Long dID;
-
     @ManyToOne
     @JoinColumn(name = "IDP")
     private Person person;
