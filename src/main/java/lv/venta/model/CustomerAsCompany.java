@@ -1,6 +1,5 @@
 package lv.venta.model;
 
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -30,8 +30,8 @@ public abstract class AbstractCustomer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int customerId;
 	
-	@NotNull
-	@Pattern(regexp = "[A-ZĒŪĪĻĶĢŠĀŽČŅ]{1}[a-zēūīļķģšāžčņ]+", message = "Only letters allowed")
+	//@NotNull
+	//@Pattern(regexp = "[A-ZĒŪĪĻĶĢŠĀŽČŅ]{1}[a-zēūīļķģšāžčņ]+", message = "Only letters allowed")
     private Address address;
     
 	@NotNull

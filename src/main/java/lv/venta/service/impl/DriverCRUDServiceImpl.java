@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lv.venta.model.Driver;
-import lv.venta.model.Person;
 import lv.venta.repo.IDriverRepo;
 import lv.venta.service.IDriverCRUDService;
 
