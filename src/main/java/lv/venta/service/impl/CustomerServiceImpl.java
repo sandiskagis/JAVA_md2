@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lv.venta.model.Address;
 import lv.venta.model.CustomerAsCompany;
 import lv.venta.model.CustomerAsPerson;
-import lv.venta.repo.IAbstractCustomerRepo;
 import lv.venta.repo.ICustomerAsCompanyRepo;
 import lv.venta.repo.ICustomerAsPersonRepo;
 import lv.venta.service.ICustomerService;
@@ -18,17 +17,16 @@ public class CustomerServiceImpl implements ICustomerService{
 	@Autowired
 	ICustomerAsCompanyRepo customerAsCompanyRepo;
 	
-	@Autowired
-	IAbstractCustomerRepo abstractCustomerRepo;
-	
 	
 	@Override
 	public void insertNewCustomerAsPerson(String name, String surname, String personCode, String phoneNo) throws Exception {
-		if(customerAsPersonRepo.existsByPersonCode(personCode))
+		if(customerAsPersonRepo.existsByPersonPersonCode(personCode))
 			throw new Exception("This CustomerAsPerson is already registered!");
 		
-		CustomerAsPerson newCustomer = new CustomerAsPerson(name, surname, personCode, null, phoneNo);
-		customerAsPersonRepo.save(newCustomer);
+		//CustomerAsPerson newCustomer = new CustomerAsPerson(name, surname, personCode, null, phoneNo);
+		//customerAsPersonRepo.save(newCustomer);
+		
+		//todo no sakuma jasaglaba persona personRepo, tad so pasu personu pielipina customerAsPerson un saglaba customerAsPersonRepo
 	}
 	
 	@Override

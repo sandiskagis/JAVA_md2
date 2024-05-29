@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -23,6 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table(name = "PERSON_TABLE")
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)//viedojas 3 tabulas, Personas dati būs personas tabulā, bet Profesora individuāli dati būs profesoru tabula ar id uz personas tabulas. tapat ar Student
 public class Person {
 
 	
@@ -45,12 +48,13 @@ public class Person {
     private String surname;
 
     @NotNull
-    @Pattern(regexp = "^(\\d{6})-[012]\\d{4}$", message = "Person code must be in the format 101099-32437")
+    //@Pattern(regexp = "^(\\d{6})-[012]\\d{4}$", message = "Person code must be in the format 101099-32437")
+    //todo pattern
     @Column(name = "PERSON_CODE", unique = true)
     private String personCode;
 	
     public Person(String name, String surname, String personCode) {
-		setName(name);;
+		setName(name);
 		setSurname(surname);
 		setPersonCode(personCode);
 	}

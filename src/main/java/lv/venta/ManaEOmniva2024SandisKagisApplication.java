@@ -49,11 +49,6 @@ public class ManaEOmniva2024SandisKagisApplication {
 				driverRepo.save(d1);
 				driverRepo.save(d2);
 				
-				Parcel pa1 = new Parcel(true, ParcelSize.M, d1, LocalDateTime.now().plus(1, ChronoUnit.WEEKS));
-				Parcel pa2 = new Parcel(false, ParcelSize.L, d2, LocalDateTime.now().plus(2, ChronoUnit.WEEKS));
-				parcelRepo.save(pa1);
-				parcelRepo.save(pa2);
-				
 				Address a1 = new Address(City.Riga, "Bruninieku iela", 101);
 				Address a2 = new Address(City.Ventspils, "Inzenieru iela", 50);
 				Address a3 = new Address(City.Daugavpils, "Bruklenu iela", 77);
@@ -63,8 +58,8 @@ public class ManaEOmniva2024SandisKagisApplication {
 				addressRepo.save(a3);
 				addressRepo.save(a4);
 				
-				CustomerAsPerson cp1 = new CustomerAsPerson("Karlis", "Liepins", "210995-23876", a1, "20202020");
-				CustomerAsPerson cp2 = new CustomerAsPerson("Andris", "Pakalns", "180695-54456", a2, "24397343");
+				CustomerAsPerson cp1 = new CustomerAsPerson(p1, a1, "20202020");
+				CustomerAsPerson cp2 = new CustomerAsPerson(p2, a2, "24397343");
 				custAsPersRepo.save(cp1);
 				custAsPersRepo.save(cp2);
 				
@@ -72,6 +67,15 @@ public class ManaEOmniva2024SandisKagisApplication {
 				CustomerAsCompany cc2 = new CustomerAsCompany(a4, "22228888", "SIA Uznemums", "99009900");
 				custAsCompRepo.save(cc1);
 				custAsCompRepo.save(cc2);
+				
+				Parcel pa1 = new Parcel(true, ParcelSize.M, cp1, d1, LocalDateTime.now().plus(1, ChronoUnit.WEEKS));
+				Parcel pa2 = new Parcel(false, ParcelSize.L, cc1, d2, LocalDateTime.now().plus(2, ChronoUnit.WEEKS));
+				parcelRepo.save(pa1);
+				parcelRepo.save(pa2);
+				
+				
+				
+				
 			}
 		};
 	}

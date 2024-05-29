@@ -5,7 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -24,16 +27,17 @@ import lombok.ToString;
 public class Address {
 
 	@Setter(value = AccessLevel.NONE)//priekš ID nebūs automātiskais set
-	@Column(name = "IDa")
+	@Column(name = "IDA")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private int aID;
 	
+	@NotNull
 	@Column(name = "CITY")
 	private City city;
 	
-	@NotNull
-	@Size(min = 1, max = 1000)
+	@Min(0)
+    @Max(1000)
 	@Column(name = "HOUSE_NO")
 	private int houseNo;
 	
@@ -41,6 +45,12 @@ public class Address {
 	@Size(min = 2, max = 100)
 	@Column(name = "STREET_OR_HOUSE_NO")
 	private String streetOrHouseTitle;
+	
+	@OneToOne(mappedBy = "address")
+	private CustomerAsPerson customerP;
+	
+	@OneToOne(mappedBy = "address")
+	private CustomerAsCompany customerC;
 	
 	
 	

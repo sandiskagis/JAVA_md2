@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lv.venta.model.AbstractCustomer;
 import lv.venta.model.City;
+import lv.venta.model.CustomerAsCompany;
+import lv.venta.model.CustomerAsPerson;
 import lv.venta.model.Driver;
 import lv.venta.model.Parcel;
 import lv.venta.model.ParcelSize;
-import lv.venta.repo.IAbstractCustomerRepo;
 import lv.venta.repo.ICustomerAsCompanyRepo;
 import lv.venta.repo.ICustomerAsPersonRepo;
 import lv.venta.repo.IDriverRepo;
@@ -33,9 +33,6 @@ public class ParcelServiceImpl implements IParcelService{
 	
 	@Autowired
 	ICustomerAsPersonRepo customerAsPersonRepo;
-	
-	@Autowired
-	IAbstractCustomerRepo abstractCustomerRepo;
 
 	@Override
 	public ArrayList<Parcel> selectAllParcelsByCustomerId(int id) throws Exception {
@@ -44,7 +41,8 @@ public class ParcelServiceImpl implements IParcelService{
 		if(!customerAsCompanyRepo.existsByCustomerId(id) && !customerAsPersonRepo.existsByCustomerId(id))
 			throw new Exception("Customer with id (" + id + ") doesn't exist");
 		
-		ArrayList<Parcel> result = parcelRepo.findByCustomerId(id);
+		ArrayList<Parcel> result = parcelRepo.findByCustomerCCustomerId(id);
+		//todo parbaudit vai company vai persona
 		
 		if(result.isEmpty())
 			throw new Exception("There is no linkage between this customer and parcels");		
@@ -60,7 +58,7 @@ public class ParcelServiceImpl implements IParcelService{
 		if(!driverRepo.existsById(id))
 			throw new Exception("Driver with id (" + id + ") doesn't exist");
 		
-		ArrayList<Parcel> result = parcelRepo.findByDriverId(id);
+		ArrayList<Parcel> result = parcelRepo.findByDriverPersonId(id);
 		
 		if(result.isEmpty())
 			throw new Exception("There is no linkage between this driver and parcels");		
@@ -80,28 +78,40 @@ public class ParcelServiceImpl implements IParcelService{
 	public ArrayList<Parcel> selectAllParcelsDeliveredToCity(City city) throws Exception {
 		if(city == null) throw new Exception("Wrong city input param");
 		
-		ArrayList<Parcel> result = parcelRepo.findByCity(city);
+		ArrayList<Parcel> result = parcelRepo.findByCustomerPAddressCity(city);
+		//todo janoskaidro vai persona vai company
+		
 		return result;
 	}
 
 	@Override
-	public void insertNewParcelByCustomerCodeAndDriverId(String customerCode, int driverId, boolean isFragile, LocalDateTime orderCreated, LocalDateTime plannedDelivery, float price, ParcelSize size, Driver driver) throws Exception {
+	public void insertNewParcelByCustomerCodeAndDriverId(String customerCode, int driverId, boolean isFragile, LocalDateTime orderCreated, LocalDateTime plannedDelivery, float price, ParcelSize size, CustomerAsPerson customerP, CustomerAsCompany customerC, Driver driver) throws Exception {
 		if(driverId <= 0) throw new Exception("Id should be positive");
 		
 		if(customerCode == null) throw new Exception("Problems with customerCode input parameter");
 		
-		if(!customerAsCompanyRepo.existsByCustomerCode(customerCode) || !customerAsPersonRepo.existsByCustomerCode(customerCode))
-			throw new Exception("Customer with customerCode (" + customerCode + ") doesn't exist");
+		if(!customerAsPersonRepo.existsByCustomerCode(customerCode))
+			throw new Exception("CustomerAsPerson with customerCode (" + customerCode + ") doesn't exist");
+		
+		if(!customerAsCompanyRepo.existsByCustomerCode(customerCode))
+			throw new Exception("CustomerAsCompany with customerCode (" + customerCode + ") doesn't exist");
 		
 		if(driverRepo.existsById(driverId))
 			driver = driverRepo.findByPersonId(driverId);
 			//throw new Exception("Driver with id (" + driverId + ") doesn't exist");
 		
-		if(abstractCustomerRepo.existsByCustomerCode(customerCode)) {
-			AbstractCustomer tempSt = abstractCustomerRepo.findByCustomerCode(customerCode);
-			tempSt.addNewParcel(new Parcel(isFragile, size, driver, plannedDelivery));
+		if(customerAsPersonRepo.existsByCustomerCode(customerCode)) {
+			CustomerAsPerson tempSt = customerAsPersonRepo.findByCustomerCode(customerCode);
+			tempSt.addNewParcel(new Parcel(isFragile, size, customerP, driver, plannedDelivery));
 			
-			abstractCustomerRepo.save(tempSt);
+			customerAsPersonRepo.save(tempSt);
+		}
+		
+		if(customerAsCompanyRepo.existsByCustomerCode(customerCode)) {
+			CustomerAsCompany tempSt = customerAsCompanyRepo.findByCustomerCode(customerCode);
+			tempSt.addNewParcel(new Parcel(isFragile, size, customerC, driver, plannedDelivery));
+			
+			customerAsCompanyRepo.save(tempSt);
 		}
 		
 	}
@@ -130,7 +140,8 @@ public class ParcelServiceImpl implements IParcelService{
 	public float calculateIncomeOfParcelsByCustomerId(int customerId) throws Exception {
 		if(customerId <= 0) throw new Exception("Customer ID should be positive");
 		
-		ArrayList<Parcel> parcelsForCustomer = parcelRepo.findByCustomerId(customerId);
+		ArrayList<Parcel> parcelsForCustomer = parcelRepo.findByCustomerPCustomerId(customerId);
+		//todo parbaudit vai person vai company, un attiecigo funkciju
 		
 		if (parcelsForCustomer == null || parcelsForCustomer.isEmpty()) {
 	        throw new Exception("No parcels found for customer ID: " + customerId);

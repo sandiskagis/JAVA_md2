@@ -8,7 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -43,8 +47,8 @@ public class Parcel {
 	@Column(name = "PLANNED_DELIVERY")
     private LocalDateTime plannedDelivery;
     
-	@NotNull
-	@Size(min = 1, max = 100)
+	@Min(1)
+	@Max(100)
 	@Column(name = "PRICE")
     private float price;
     
@@ -52,8 +56,19 @@ public class Parcel {
 	@Column(name = "SIZE")
     private ParcelSize size;
     
+    
+    @ManyToOne
+    @JoinColumn(name = "IDCP")
+    private CustomerAsPerson customerP;
+    
+    
+    @ManyToOne
+    @JoinColumn(name = "IDCC")
+    private CustomerAsCompany customerC;
+    
     @NotNull
-	@Column(name = "IDP")
+    @ManyToOne
+    @JoinColumn(name = "IDP")
     private Driver driver;
     
     
@@ -65,7 +80,7 @@ public class Parcel {
             this.plannedDelivery = orderCreated.plus(1, ChronoUnit.WEEKS);
     }
     
-    public void setPrice(ParcelSize size, boolean isFragile)
+    public void setPrice()
     {
         if(isFragile == true)
         {
@@ -107,11 +122,22 @@ public class Parcel {
     }
     
     
-    public Parcel(boolean isFragile, ParcelSize size, Driver driver, LocalDateTime plannedDelivery) {
+    public Parcel(boolean isFragile, ParcelSize size, CustomerAsPerson customerP, Driver driver, LocalDateTime plannedDelivery) {
     	this.orderCreated = LocalDateTime.now();
     	setFragile(isFragile);
     	setSize(size);
-    	setPrice(price);
+    	setPrice();
+    	setCustomerP(customerP);
+    	setDriver(driver);
+    	setPlannedDelivery(plannedDelivery);
+    }
+    
+    public Parcel(boolean isFragile, ParcelSize size, CustomerAsCompany customerC, Driver driver, LocalDateTime plannedDelivery) {
+    	this.orderCreated = LocalDateTime.now();
+    	setFragile(isFragile);
+    	setSize(size);
+    	setPrice();
+    	setCustomerC(customerC);
     	setDriver(driver);
     	setPlannedDelivery(plannedDelivery);
     }

@@ -1,6 +1,8 @@
 package lv.venta.service;
 
 import lv.venta.model.City;
+import lv.venta.model.CustomerAsCompany;
+import lv.venta.model.CustomerAsPerson;
 import lv.venta.model.Driver;
 import lv.venta.model.Parcel;
 import lv.venta.model.ParcelSize;
@@ -18,7 +20,7 @@ public interface IParcelService {
 	
 	public abstract ArrayList<Parcel> selectAllParcelsDeliveredToCity(City city) throws Exception;
 	
-	public abstract void insertNewParcelByCustomerCodeAndDriverId(String customerCode, int driverId, boolean isFragile, LocalDateTime orderCreated, LocalDateTime plannedDelivery, float price, ParcelSize size, Driver driver) throws Exception;
+	public abstract void insertNewParcelByCustomerCodeAndDriverId(String customerCode, int driverId, boolean isFragile, LocalDateTime orderCreated, LocalDateTime plannedDelivery, float price, ParcelSize size, CustomerAsPerson customerP, CustomerAsCompany customerC, Driver driver) throws Exception;
 	
 	public abstract void changeParcelDriverByParcelIdAndDriverId(int parcelId, int driverId) throws Exception;
 	

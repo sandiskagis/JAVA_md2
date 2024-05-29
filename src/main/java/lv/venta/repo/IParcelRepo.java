@@ -11,16 +11,21 @@ import lv.venta.model.Parcel;
 
 public interface IParcelRepo extends CrudRepository<Parcel, Integer>{
 
-	ArrayList<Parcel> findByCustomerId(int id);
+	ArrayList<Parcel> findByCustomerPCustomerId(int id);
+	
+	ArrayList<Parcel> findByCustomerCCustomerId(int id);
 
-	ArrayList<Parcel> findByDriverId(int id);
+	ArrayList<Parcel> findByDriverPersonId(int id);
 
 	ArrayList<Parcel> findByPriceLessThan(float price);
 
-	ArrayList<Parcel> findByCity(City city);
+	ArrayList<Parcel> findByCustomerPAddressCity(City city);
+	
+	ArrayList<Parcel> findByCustomerCAddressCity(City city);
 
 	Parcel findByParcelId(int parcelId);
 
 	ArrayList<Parcel> findByPlannedDeliveryBetween(LocalDateTime todayStart, LocalDateTime todayEnd);
 
+	
 }
