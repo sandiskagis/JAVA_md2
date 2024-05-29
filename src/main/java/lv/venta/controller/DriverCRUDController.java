@@ -27,7 +27,7 @@ public class DriverCRUDController {
 		try {
 			model.addAttribute("mydata", driverService.selectAllDriver());
 			model.addAttribute("msg", "All drivers");
-			return "driver-all-show-page";// tiek parādīta driver-all-show-page.html lapa
+			return "driver-all-page";// tiek parādīta driver-all-page.html lapa
 		}
 		catch (Exception e) {
 			model.addAttribute("errormsg", e.getMessage());
@@ -40,7 +40,7 @@ public class DriverCRUDController {
 		try
 		{
 			model.addAttribute("mydata", driverService.selectDriverById(id));
-			return "driver-one-show-page";// tiek parādīta driver-one-show-page.html lapa
+			return "driver-one-page";// tiek parādīta driver-one-page.html lapa
 		}
 		catch (Exception e) {
 			model.addAttribute("errormsg", e.getMessage());
@@ -56,7 +56,7 @@ public class DriverCRUDController {
 			driverService.deleteDriverById(id);
 			model.addAttribute("mydata", driverService.selectAllDriver());
 			model.addAttribute("msg", "All drivers");
-			return "driver-all-show-page";// tiek parādīta driver-all-show-page.html lapa
+			return "driver-all-page";// tiek parādīta driver-all-page.html lapa
 		} catch (Exception e) {
 			model.addAttribute("errormsg", e.getMessage());
 			return "error-page";// tiek parādīta error-page.html lapa
@@ -66,14 +66,14 @@ public class DriverCRUDController {
 	@GetMapping("/insert") //localhost:8080/driver/insert
 	public String postProductInsert(Model model) {
 		model.addAttribute("driver", new Driver());//noklusējuma driver tiks padots uz lapu
-		return "driver-insert-page";//tiek parādīta driver-insert-page.html lapa
+		return "driver-add-page";//tiek parādīta driver-add-page.html lapa
 	}
 	
 	@PostMapping("/insert")
 	public String postProductInsert(@Valid Driver driver, BindingResult result) {//iegūstam aju aizpildītu produktu
 		//sajā gadījumā ir validāciju pāŗkāpumi Product objektam
 		if(result.hasErrors()) {
-			return "product-insert-page";//paliekam šajā pašā lapā
+			return "product-add-page";//paliekam šajā pašā lapā
 		}
 		else
 		{

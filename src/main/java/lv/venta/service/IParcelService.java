@@ -22,7 +22,7 @@ public interface IParcelService {
 	
 	public abstract void insertNewParcelByCustomerCodeAndDriverId(String customerCode, int driverId, boolean isFragile, LocalDateTime orderCreated, LocalDateTime plannedDelivery, float price, ParcelSize size, CustomerAsPerson customerP, CustomerAsCompany customerC, Driver driver) throws Exception;
 	
-	public abstract void changeParcelDriverByParcelIdAndDriverId(int parcelId, int driverId) throws Exception;
+	public abstract Parcel changeParcelDriverByParcelIdAndDriverId(int parcelId, int driverId) throws Exception;
 	
 	public abstract float calculateIncomeOfParcelsByCustomerId(int customerId) throws Exception;
 	

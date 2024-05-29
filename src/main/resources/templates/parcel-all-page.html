@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<p th:text="${msg}"></p>
+	<table>
+		<tr th:each="tempC: ${mydata}">
+			<td th:text="${tempC.getParcelId()}"></td>
+			<td th:text="${tempC.getFragile()}"></td>
+			<td th:text="${tempC.getOrderCreated()}"></td>
+			<td th:text="${tempC.getPlannedDelivery()}"></td>
+			<td th:text="${tempC.getPrice()}"></td>
+			<td th:text="${tempC.getSize()}"></td>
+			<td th:text="${tempC.getCustomerP()}"></td>
+			<td th:text="${tempC.getCustomerC()}"></td>
+			<td th:text="${tempC.getDriver()}"></td>
+		</tr>
+
+	</table>
+</body>
+</html>

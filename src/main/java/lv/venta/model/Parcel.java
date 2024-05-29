@@ -37,7 +37,7 @@ public class Parcel {
 	
 	@NotNull
 	@Column(name = "IS_FRAGILE")
-	private boolean isFragile;
+	private boolean fragile;
     
 	@NotNull
 	@Column(name = "ORDER_CREATED")
@@ -82,7 +82,7 @@ public class Parcel {
     
     public void setPrice()
     {
-        if(isFragile == true)
+        if(fragile == true)
         {
             this.price = 2.99F;
         } else

@@ -140,7 +140,7 @@ public class ParcelServiceImpl implements IParcelService{
 	}
 
 	@Override
-	public void changeParcelDriverByParcelIdAndDriverId(int parcelId, int driverId) throws Exception {
+	public Parcel changeParcelDriverByParcelIdAndDriverId(int parcelId, int driverId) throws Exception {
 		if(parcelId <= 0) throw new Exception("Parcel ID should be positive");
 		if(driverId <= 0) throw new Exception("Driver ID should be positive");
 		
@@ -157,6 +157,8 @@ public class ParcelServiceImpl implements IParcelService{
 		parcelToChange.setDriver(newDriver);
 		
 		parcelRepo.save(parcelToChange);
+		
+		return parcelToChange;
 	}
 
 	@Override
