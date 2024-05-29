@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lv.venta.model.Address;
 import lv.venta.model.CustomerAsCompany;
 import lv.venta.model.CustomerAsPerson;
+import lv.venta.model.Person;
 import lv.venta.repo.ICustomerAsCompanyRepo;
 import lv.venta.repo.ICustomerAsPersonRepo;
 import lv.venta.service.ICustomerService;
@@ -25,6 +26,10 @@ public class CustomerServiceImpl implements ICustomerService{
 		
 		//CustomerAsPerson newCustomer = new CustomerAsPerson(name, surname, personCode, null, phoneNo);
 		//customerAsPersonRepo.save(newCustomer);
+		
+		Person newPerson = new Person(name, surname, personCode);
+		CustomerAsPerson newCustomer = new CustomerAsPerson(newPerson, null, phoneNo);
+		customerAsPersonRepo.save(newCustomer);
 		
 		//todo no sakuma jasaglaba persona personRepo, tad so pasu personu pielipina customerAsPerson un saglaba customerAsPersonRepo
 	}

@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PostPersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -71,9 +72,10 @@ public class CustomerAsPerson{
 
 	
 	
-	
+	@PostPersist
 	public void setCustomerCode() {
-		this.customerCode = this.getCustomerId() + "_person_" + person.getPersonCode();
+		//this.customerCode = this.getCustomerId() + "_person_" + person.getPersonCode();
+		this.customerCode = this.customerId + "_person_" + person.getPersonCode();
 	}
 
 
