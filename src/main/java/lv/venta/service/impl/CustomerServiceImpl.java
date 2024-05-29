@@ -53,9 +53,20 @@ public class CustomerServiceImpl implements ICustomerService{
 			CustomerAsPerson customer = customerAsPersonRepo.findByCustomerId(customerId);
 			
 			customer.setAddress(address);
+			
+			//jauns
+			customerAsPersonRepo.save(customer);
+		}
+		//jauns
+		if(customerAsCompanyRepo.existsByCustomerId(customerId)) {
+			CustomerAsCompany customer = customerAsCompanyRepo.findByCustomerId(customerId);
+			
+			customer.setAddress(address);
+			
+			customerAsCompanyRepo.save(customer);
 		}
 		
-		
 	}
+	
 	
 }

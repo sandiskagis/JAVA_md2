@@ -6,7 +6,6 @@ import lv.venta.model.Driver;
 
 public interface IDriverRepo extends CrudRepository<Driver, Integer>{
 
-
 	boolean existsById(int id);
 
 	Driver findByPersonCode(String personCode);

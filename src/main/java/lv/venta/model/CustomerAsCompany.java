@@ -35,8 +35,6 @@ public class CustomerAsCompany{
 	@Column(name = "IDCC")
 	private int customerId;
 	
-	//@NotNull
-	//@Pattern(regexp = "[A-ZĒŪĪĻĶĢŠĀŽČŅ]{1}[a-zēūīļķģšāžčņ]+", message = "Only letters allowed")
 	@OneToOne
     @JoinColumn(name = "IDA")
 	private Address address;

@@ -26,6 +26,5 @@ public interface IParcelRepo extends CrudRepository<Parcel, Integer>{
 	Parcel findByParcelId(int parcelId);
 
 	ArrayList<Parcel> findByPlannedDeliveryBetween(LocalDateTime todayStart, LocalDateTime todayEnd);
-
 	
 }

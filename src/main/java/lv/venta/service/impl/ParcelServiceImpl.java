@@ -41,13 +41,27 @@ public class ParcelServiceImpl implements IParcelService{
 		if(!customerAsCompanyRepo.existsByCustomerId(id) && !customerAsPersonRepo.existsByCustomerId(id))
 			throw new Exception("Customer with id (" + id + ") doesn't exist");
 		
-		ArrayList<Parcel> result = parcelRepo.findByCustomerCCustomerId(id);
-		//todo parbaudit vai company vai persona
-		
-		if(result.isEmpty())
-			throw new Exception("There is no linkage between this customer and parcels");		
+		//jauns
+		if(customerAsCompanyRepo.existsByCustomerId(id)) {
+			ArrayList<Parcel> result = parcelRepo.findByCustomerCCustomerId(id);
+			
+			if(result.isEmpty())
+				throw new Exception("There is no linkage between this customer and parcels");		
 
-		return result;
+			return result;
+		}
+		
+		if(customerAsPersonRepo.existsByCustomerId(id)) {
+			ArrayList<Parcel> result = parcelRepo.findByCustomerPCustomerId(id);
+			
+			if(result.isEmpty())
+				throw new Exception("There is no linkage between this customer and parcels");		
+
+			return result;
+			
+		}
+		
+		return null;
 	}
 	
 
@@ -78,8 +92,17 @@ public class ParcelServiceImpl implements IParcelService{
 	public ArrayList<Parcel> selectAllParcelsDeliveredToCity(City city) throws Exception {
 		if(city == null) throw new Exception("Wrong city input param");
 		
+		//jauns
+	
 		ArrayList<Parcel> result = parcelRepo.findByCustomerPAddressCity(city);
 		//todo janoskaidro vai persona vai company
+		if(result.isEmpty()) {
+			ArrayList<Parcel> result2 = parcelRepo.findByCustomerCAddressCity(city);
+			if(result2.isEmpty())
+				throw new Exception("There is no linkage between this city and any parcels");
+			
+			return result2;
+		}
 		
 		return result;
 	}
@@ -138,21 +161,53 @@ public class ParcelServiceImpl implements IParcelService{
 
 	@Override
 	public float calculateIncomeOfParcelsByCustomerId(int customerId) throws Exception {
+//		if(customerId <= 0) throw new Exception("Customer ID should be positive");
+//		
+//		ArrayList<Parcel> parcelsForCustomer = parcelRepo.findByCustomerPCustomerId(customerId);
+//		//todo parbaudit vai person vai company, un attiecigo funkciju
+//		
+//		if (parcelsForCustomer == null || parcelsForCustomer.isEmpty()) {
+//	        throw new Exception("No parcels found for customer ID: " + customerId);
+//	    }
+//
+//	    float totalIncome = 0.0f;
+//	    for (Parcel parcel : parcelsForCustomer) {
+//	        totalIncome += parcel.getPrice();
+//	    }
+//	    
+//	    return totalIncome;
+//		
 		if(customerId <= 0) throw new Exception("Customer ID should be positive");
 		
-		ArrayList<Parcel> parcelsForCustomer = parcelRepo.findByCustomerPCustomerId(customerId);
-		//todo parbaudit vai person vai company, un attiecigo funkciju
+		float totalIncome = 0.0f;
 		
-		if (parcelsForCustomer == null || parcelsForCustomer.isEmpty()) {
-	        throw new Exception("No parcels found for customer ID: " + customerId);
-	    }
+		if(customerAsPersonRepo.existsByCustomerId(customerId)) {
+			ArrayList<Parcel> parcelsForCustomer = parcelRepo.findByCustomerPCustomerId(customerId);
+		
+			if (parcelsForCustomer == null || parcelsForCustomer.isEmpty())
+				throw new Exception("No parcels found for customer ID: " + customerId);
 
-	    float totalIncome = 0.0f;
-	    for (Parcel parcel : parcelsForCustomer) {
-	        totalIncome += parcel.getPrice(); // Assuming getPrice() method exists in Parcel class
-	    }
+			for (Parcel parcel : parcelsForCustomer) {
+				totalIncome += parcel.getPrice();
+			}
 	    
-	    return totalIncome;
+			return totalIncome;
+		}
+		
+		if(customerAsCompanyRepo.existsByCustomerId(customerId)) {
+			ArrayList<Parcel> parcelsForCustomer = parcelRepo.findByCustomerCCustomerId(customerId);
+		
+			if (parcelsForCustomer == null || parcelsForCustomer.isEmpty())
+				throw new Exception("No parcels found for customer ID: " + customerId);
+
+			for (Parcel parcel : parcelsForCustomer) {
+				totalIncome += parcel.getPrice();
+			}
+	    
+			return totalIncome;
+		}
+		
+		return totalIncome;
 		
 	}
 

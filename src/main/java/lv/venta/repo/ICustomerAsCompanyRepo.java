@@ -13,5 +13,7 @@ public interface ICustomerAsCompanyRepo extends CrudRepository<CustomerAsCompany
 	boolean existsByCompanyRegNo(String companyRegNo);
 	
 	CustomerAsCompany findByCustomerCode(String customerCode);
+	
+	CustomerAsCompany findByCustomerId(int customerId);
 
 }

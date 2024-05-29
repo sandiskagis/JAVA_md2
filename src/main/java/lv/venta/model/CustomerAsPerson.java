@@ -36,8 +36,6 @@ public class CustomerAsPerson{
 	@Column(name = "IDCP")
 	private int customerId;
 	
-	//@NotNull
-	//@Pattern(regexp = "[A-ZĒŪĪĻĶĢŠĀŽČŅ]{1}[a-zēūīļķģšāžčņ]+", message = "Only letters allowed")
 	@OneToOne
 	@JoinColumn(name = "IDA")
 	private Address address;
@@ -72,10 +70,8 @@ public class CustomerAsPerson{
 
 	
 	
-	@PostPersist
 	public void setCustomerCode() {
-		//this.customerCode = this.getCustomerId() + "_person_" + person.getPersonCode();
-		this.customerCode = this.customerId + "_person_" + person.getPersonCode();
+		this.customerCode = this.getCustomerId() + "_person_" + person.getPersonCode();
 	}
 
 
